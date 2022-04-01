@@ -35,31 +35,39 @@ int main (int argc, char *argv[])
   int a,vetor[MAX_ARR];
   a = le_vetor(vetor);
   quicksort(vetor,a,0,a-1);
-  exibe_vetor(vetor,a);
   return 0;
 }
 
 void quicksort(int vetor[MAX_ARR], int tam_vetor, int comeco, int fim) {
   int j;
+  printf(">> Quicksort(começo = %i, fim = %i). Vetor = ",comeco,fim);
+  exibe_vetor(vetor,tam_vetor);
+  printf("\n");
   if(comeco<fim){
+    
     j = particiona(vetor,comeco,fim);
+
     quicksort(vetor,tam_vetor,comeco,j-1);
     quicksort(vetor,tam_vetor,j+1,fim);
   }
+  printf("** Quicksort(começo = %i, fim = %i). Vetor = ",comeco,fim);
+  exibe_vetor(vetor,tam_vetor);
+  printf("\n");
+  
 }
 
 int particiona(int vetor[MAX_ARR], int comeco, int fim) {
-  int pivo,j,i;
+  int pivo,i,j;
   pivo = (comeco+fim)/2;
   troca_elementos(vetor,pivo,fim);
   j = comeco;
-  for(i=0;i<fim;i++){
+  for(i=comeco;i<fim;i++){
     if(vetor[i]<=vetor[fim]){
       troca_elementos(vetor,i,j);
       j++;
     }
   }
-  troca_elementos(vetor,fim,j);
+  troca_elementos(vetor,j,fim);
   return j;
 }
 
