@@ -32,17 +32,42 @@ void exibe_vetor(int vetor[MAX_ARR], int tam_vetor);
 
 int main (int argc, char *argv[])
 {
-
+  int a,vetor[MAX_ARR];
+  a = le_vetor(vetor);
+  quicksort(vetor,a,0,a-1);
+  exibe_vetor(vetor,a);
   return 0;
 }
 
 void quicksort(int vetor[MAX_ARR], int tam_vetor, int comeco, int fim) {
+  int j;
+  if(comeco<fim){
+    j = particiona(vetor,comeco,fim);
+    quicksort(vetor,tam_vetor,comeco,j-1);
+    quicksort(vetor,tam_vetor,j+1,fim);
+  }
 }
 
 int particiona(int vetor[MAX_ARR], int comeco, int fim) {
+  int pivo,j,i;
+  pivo = (comeco+fim)/2;
+  troca_elementos(vetor,pivo,fim);
+  j = comeco;
+  for(i=0;i<fim;i++){
+    if(vetor[i]<=vetor[fim]){
+      troca_elementos(vetor,i,j);
+      j++;
+    }
+  }
+  troca_elementos(vetor,fim,j);
+  return j;
 }
 
 void troca_elementos(int vetor[MAX_ARR], int i, int j) {
+  int aux;
+  aux = vetor[i];
+  vetor[i] = vetor[j];
+  vetor[j] = aux;
 }
 
 void exibe_vetor(int vetor[MAX_ARR], int tam_vetor) {
@@ -55,4 +80,15 @@ void exibe_vetor(int vetor[MAX_ARR], int tam_vetor) {
 }
 
 int le_vetor(int vetor[MAX_ARR]) {
+  int i, a;
+  printf("Digite os valores do vetor: ");
+  for(i=0;i<MAX_ARR;i++){
+    scanf("%i",&a);
+    if(a==-100||i==MAX_ARR){
+      break;
+    } 
+    vetor[i] = a;
+  }
+  
+  return i;
 }
